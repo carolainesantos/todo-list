@@ -1,0 +1,83 @@
+.todo-app {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.todo-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.todo-input {
+  padding: 10px;
+  width: 300px;
+  margin-right: 10px;
+}
+
+.todo-button {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.todo-button:hover {
+  background-color: #218838;
+}
+
+.todo-list {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+}
+
+.todo-text {
+  cursor: pointer;
+}
+
+.todo-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.todo-actions .edit-btn {
+  color: #007bff;
+}
+
+.todo-actions .delete-btn {
+  color: #dc3545;
+}
+
+.edit-input {
+  padding: 10px;
+  width: 70%;
+}
+
+.save-btn {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #218838;
+}
