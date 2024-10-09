@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 function ToDoItem({ todo, toggleComplete, deleteTodo, updateTodo }) {
-  console.log(todo);
   const [isEditing, setIsEditing] = useState(false);
   const [newText, setNewText] = useState(todo.description);
 

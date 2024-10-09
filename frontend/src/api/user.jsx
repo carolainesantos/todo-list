@@ -8,7 +8,6 @@ export const getUserById = async (id) => {
 
 // Função para criar um novo usuário
 export const createUser = async (user) => {
-  console.log(user);
   const response = await api.post("/api/v1/user", user);
   return response.data;
 };

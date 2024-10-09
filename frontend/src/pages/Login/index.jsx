@@ -26,8 +26,8 @@ export default function Login() {
     try {
       const response = await loginUser(email, password);
 
-      if (response) {
-        login(response);
+      if (response.token) {
+        login(response.token);
         return navigate("/todolist");
       }
     } catch (error) {
@@ -44,8 +44,8 @@ export default function Login() {
   return (
     <div className="login-container">
       <form className="login-form">
-        <h2>Login</h2>
-        <div className="input-group">
+        <h2 className="Title-Login">Login</h2>
+        <div className="input-group-login">
           <label htmlFor="email">Email:</label>
           <input
             type="text"
@@ -55,7 +55,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="input-group">
+        <div className="input-group-login">
           <label htmlFor="password">Password:</label>
           <input
             type="password"
@@ -68,7 +68,7 @@ export default function Login() {
         <p>
           Não possui conta?{" "}
           <spam className="signup" onClick={handleCreateAccount}>
-            Cadastre-se
+            Clique aqui
           </spam>
         </p>
         <button className="button" type="submit" onClick={handleSubmit}>

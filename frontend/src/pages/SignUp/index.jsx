@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../api/user";
 import { toast } from "react-toastify";
+import "./styles.css";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -19,14 +20,12 @@ export default function SignUp() {
       e.preventDefault();
 
       const responseApi = await createUser({ name, email, password });
-      console.log(responseApi);
       if (responseApi.id) {
         navigate("/");
       } else {
         console.log(responseApi);
       }
     } catch (error) {
-      console.log(error);
       if (error.status === 403) {
         return toast("Sem permissão.");
       }
@@ -40,9 +39,9 @@ export default function SignUp() {
   return (
     <div className="signup-container">
       <form className="signup-form">
-        <h2>Cadastre-se</h2>
+        <h2 className="title-signup">Criar Conta</h2>
         <div className="input-group">
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name">Nome:</label>
           <input
             type="text"
             id="name"
