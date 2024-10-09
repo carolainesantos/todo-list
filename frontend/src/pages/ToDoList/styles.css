@@ -1,6 +1,33 @@
+h1 {
+  font-family: "Poppins", sans-serif;
+  color: #218838;
+  font-size: 42px;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.logout-button {
+  background-color: #adaaaa;
+  color: #003c43;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  width: 90px;
+}
+
+.logout-button:hover {
+  background-color: #575656;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+}
+
 .todo-app {
   text-align: center;
   margin-top: 50px;
+  padding: 50px;
+  width: 900px;
 }
 
 .todo-form {
@@ -11,8 +38,10 @@
 
 .todo-input {
   padding: 10px;
-  width: 300px;
+  width: 420px;
   margin-right: 10px;
+  border: 1px solid #28a745;
+  border-radius: 5px;
 }
 
 .todo-button {
@@ -20,11 +49,13 @@
   background-color: #28a745;
   color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .todo-button:hover {
   background-color: #218838;
+  font-weight: 600;
 }
 
 .todo-list {
@@ -34,10 +65,13 @@
 
 .todo-item {
   display: flex;
+  color: #218838;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccd3ca;
   margin-bottom: 10px;
   border-radius: 5px;
 }
@@ -58,11 +92,27 @@
 }
 
 .todo-actions .edit-btn {
+  font-size: 16px;
   color: #007bff;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.todo-actions .edit-btn:hover {
+  color: #007bff;
+  font-weight: 600;
+  transform: scale(1.1);
 }
 
 .todo-actions .delete-btn {
   color: #dc3545;
+  font-size: 16px;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.todo-actions .delete-btn:hover {
+  color: #dc3545;
+  font-weight: 600;
+  transform: scale(1.1);
 }
 
 .edit-input {
@@ -75,9 +125,11 @@
   background-color: #28a745;
   color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .save-btn:hover {
   background-color: #218838;
+  font-weight: 600;
 }
