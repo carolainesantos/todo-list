@@ -1,45 +1,70 @@
 /* src/components/LoginForm.css */
+
+root {
+  margin-bottom: 500px;
+}
+
+p {
+  color: #505050;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f5f5f5;
+  margin-top: 100px;
+  margin-bottom: 150px;
 }
 
 .login-form {
-  background: white;
+  background: #fff;
   padding: 50px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 300px;
 }
 
-.login-form h2 {
+.login-form .Title-Login {
   text-align: center;
   margin-bottom: 20px;
+  color: #347928;
+  font-weight: 600;
+  font-size: 32px;
+  font-family: "Poppins", sans-serif;
 }
 
-.input-group {
+.input-group-login {
   margin-bottom: 15px;
 }
 
-.input-group label {
+.input-group-login label {
+  color: darkslategrey;
   display: block;
   margin-bottom: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 100;
+  font-size: 14px;
 }
 
-.input-group input {
+.input-group-login input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
   box-sizing: border-box;
 }
 
 .button {
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #347928;
   color: white;
   border: none;
   border-radius: 4px;
@@ -51,14 +76,16 @@
 .back-button {
   background-color: #8a8a8a;
   color: rgb(2, 2, 2);
+  font-weight: 300;
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #399918;
 }
 
 .back-button:hover {
   background-color: #505050;
+  font-weight: 700;
 }
 
 .error {
@@ -68,12 +95,15 @@
 }
 
 .signup {
-  color: #0056b3;
-  padding: 5px;
+  color: #347928;
+  transition: transform 0.3s ease, color 0.3s ease, padding 0.3s ease;
 }
 
 .signup:hover {
-  background-color: #0056b3;
-  border-radius: 25px;
+  background-color: #347928;
+  border-radius: 20px;
   color: #fff;
+  font-weight: 300;
+  padding: 3px 6px;
+  transform: scale(1.1);
 }

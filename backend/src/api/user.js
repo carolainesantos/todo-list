@@ -8,8 +8,8 @@ class UserApi {
 
       res.send({ user });
     } catch (e) {
-      console.log(e);
-      res.status(400).send("Get Deu erro");
+      console.error(e);
+      res.status(400).send("Erro ao encontrar usuário");
     }
   }
 
@@ -32,8 +32,8 @@ class UserApi {
       const user = await UserController.update(id, name, email, password);
       return res.status(200).send(user);
     } catch (e) {
-      console.log(e);
-      res.status(400).send("Update Deu erro");
+      console.error(e);
+      res.status(400).send("Erro ao fazer update");
     }
   }
 
@@ -43,8 +43,8 @@ class UserApi {
       await UserController.delete(id);
       return res.status(204).send();
     } catch (e) {
-      console.log(e);
-      res.status(400).send("Delete Deu erro");
+      console.error(e);
+      res.status(400).send("Erro ao deletar");
     }
   }
 
@@ -52,11 +52,9 @@ class UserApi {
     try {
       const { email, password } = req.body;
       const token = await UserController.login(email, password);
-      return res.status(201).send(token);
+      return res.status(201).send({ token });
     } catch (e) {
-      return res
-        .status(400)
-        .send({ error: `Erro ao criar usuário ${e.message}` });
+      return res.status(400).send({ error: `Erro: ${e.message}` });
     }
   }
 }

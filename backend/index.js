@@ -3,8 +3,17 @@ const userRouter = require("./src/routes/user");
 const taskRouter = require("./src/routes/task");
 const database = require("./src/config/database");
 const cors = require("cors");
+const xssClean = require("xss-clean");
+const cookieParser = require("cookie-parser");
 
 const app = express();
+
+// Middleware para sanitizar dados de entrada contra XSS
+app.use(xssClean());
+
+// Configurar o parsing de cookies para armazenar o token CSRF
+app.use(cookieParser());
+
 app.use(express.json());
 app.use(
   cors({
@@ -20,9 +29,9 @@ database.db
   .sync({ force: false })
   .then((_) => {
     app.listen(3000, () => {
-      console.log("Servidor rodando na porta 3000");
+      console.info("Servidor rodando na porta 3000");
     });
   })
   .catch((e) => {
-    console.log("Erro ao conectar com o banco: ", e);
+    console.error("Erro ao conectar com o banco: ", e);
   });

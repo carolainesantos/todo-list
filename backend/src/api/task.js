@@ -8,7 +8,7 @@ class TaskApi {
 
       res.send({ tasks });
     } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(400).send("Get Deu erro");
     }
   }
@@ -21,7 +21,7 @@ class TaskApi {
 
       res.send({ task });
     } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(400).send("Get Deu erro");
     }
   }
@@ -47,7 +47,7 @@ class TaskApi {
       const task = await TaskController.update(userId, id, description);
       return res.status(200).send(task);
     } catch (e) {
-      console.log("e");
+      console.error(e);
       res.status(400).send("Update Deu erro");
     }
   }
@@ -59,7 +59,7 @@ class TaskApi {
       await TaskController.delete(userId, id);
       return res.status(204).send();
     } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(400).send("Delete Deu erro");
     }
   }

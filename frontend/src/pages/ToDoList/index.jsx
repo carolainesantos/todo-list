@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ToDoForm from "../../components/ToDoForm";
 import ToDoItem from "../../components/ToDoItem";
 import "./styles.css";
 import { createTask, deleteTask, getTasks, updateTask } from "../../api/task";
 
 export default function ToDoList() {
+  const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
 
   const listTasks = async () => {
     const { tasks } = await getTasks();
-    console.log(tasks);
     setTodos(tasks);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
   const addTodo = async (text) => {
@@ -45,6 +51,11 @@ export default function ToDoList() {
             updateTodo={updateTodo}
           />
         ))}
+      </div>
+      <div>
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
       </div>
     </div>
   );
