@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createUser } from "../../api/user";
 import { toast } from "react-toastify";
 import "./styles.css";
+import hasScript from "../../fns/regex_script";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      if (hasScript(name) || hasScript(email) || hasScript(password)) {
+        return toast("Informe corretamente seus dados!");
+      }
 
       const responseApi = await createUser({ name, email, password });
       if (responseApi.id) {
