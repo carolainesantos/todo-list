@@ -6,6 +6,7 @@ import "./styles.css";
 import { createTask, deleteTask, getTasks, updateTask } from "../../api/task";
 import { AuthContext } from "../../auth/Context";
 import { toast } from "react-toastify";
+import hasScript from "../../fns/regex_script";
 
 export default function ToDoList() {
   const navigate = useNavigate();
@@ -23,11 +24,8 @@ export default function ToDoList() {
   };
 
   const addTodo = async (text) => {
-    const scriptTagRegex = /<script\s*.*?>.*?<\/script>/i;
-
-    if (scriptTagRegex.test(text)) {
-      toast("Ops, task inválida.");
-      return;
+    if (hasScript(text)) {
+      return toast("Ops, task inválida.");
     }
     await createTask(text);
     await listTasks();
@@ -39,6 +37,9 @@ export default function ToDoList() {
   };
 
   const updateTodo = async (id, newText) => {
+    if (hasScript(newText)) {
+      return toast("Ops, task inválida.");
+    }
     await updateTask(id, newText);
     await listTasks();
   };
