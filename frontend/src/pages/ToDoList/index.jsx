@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ToDoForm from "../../components/ToDoForm";
 import ToDoItem from "../../components/ToDoItem";
 import "./styles.css";
 import { createTask, deleteTask, getTasks, updateTask } from "../../api/task";
+import { AuthContext } from "../../auth/Context";
+import { toast } from "react-toastify";
 
 export default function ToDoList() {
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
+  const { logout } = useContext(AuthContext);
 
   const listTasks = async () => {
     const { tasks } = await getTasks();
@@ -15,11 +18,17 @@ export default function ToDoList() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logout();
     navigate("/");
   };
 
   const addTodo = async (text) => {
+    const scriptTagRegex = /<script\s*.*?>.*?<\/script>/i;
+
+    if (scriptTagRegex.test(text)) {
+      toast("Ops, task inválida.");
+      return;
+    }
     await createTask(text);
     await listTasks();
   };
