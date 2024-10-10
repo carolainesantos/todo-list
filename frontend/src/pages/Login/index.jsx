@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Context";
 import { loginUser } from "../../api/user";
 import { toast } from "react-toastify";
+import hasScript from "../../fns/regex_script";
 
 export default function Login() {
   const { login } = useContext(AuthContext);
@@ -18,6 +19,10 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (hasScript(email) || hasScript(password)) {
+      return toast("Informe o e-mail e a password para continuar!");
+    }
 
     if (!email || !password) {
       return toast("Informe o e-mail e a password para continuar!");
