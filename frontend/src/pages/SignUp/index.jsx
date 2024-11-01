@@ -33,6 +33,9 @@ export default function SignUp() {
       if (error.status === 403) {
         return toast("Sem permissão.");
       }
+      if (error.status === 400) {
+        return toast(error.response.data.error);
+      }
       if (error.status === 401 || error.status === 404) {
         return toast("Email ou password inválido, tente novamente!");
       }

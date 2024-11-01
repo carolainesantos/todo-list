@@ -21,6 +21,14 @@ class UserModel {
         type: database.db.Sequelize.STRING,
         allowNull: false,
       },
+      loginVerificationCode: {
+        type: database.db.Sequelize.STRING,
+        allowNull: true,
+      },
+      loginVerificationExpires: {
+        type: database.db.Sequelize.DATE,
+        allowNull: true,
+      },
     });
   }
 }
