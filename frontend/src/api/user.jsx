@@ -26,3 +26,9 @@ export const loginUser = async (email, password) => {
   });
   return response.data;
 };
+
+export const verifyMfa = async (email, password, code) => {
+  const body = { email, password, code };
+  const response = await api.post("/api/v1/user/verify", body);
+  return response.data;
+};

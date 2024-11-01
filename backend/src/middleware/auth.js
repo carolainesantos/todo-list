@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 const user = require("../controller/user");
 
+function generateVerificationCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
 function authMiddleware(req, res, next) {
   const token = req.headers["authorization"];
 
