@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const UserModel = require("../model/user");
+const sendMfa = require("../commom/nodemailer");
+const randomCode = require("../commom/random-code");
 
 const SECRET_KEY = "exemplo";
 const SALT_VALUE = 12;
@@ -25,6 +27,11 @@ class UserController {
   async create(name, email, password) {
     if (!name || !email || !password) {
       throw new Error("Nome, email e senha são obrigatórios.");
+    }
+
+    const regexEmail = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b/g;
+    if (!regexEmail.test(email)) {
+      throw new Error("Email inválido.");
     }
 
     const cypherSenha = await bcrypt.hash(String(password), SALT_VALUE);
@@ -78,8 +85,60 @@ class UserController {
     if (!senhaValida) {
       throw new Error("Usuário ou senha inválido.");
     }
+    const code = randomCode();
 
-    return jwt.sign({ id: userValue.id }, SECRET_KEY, { expiresIn: 60 * 60 });
+    // define a data de expiração para o código
+    const expires = new Date();
+    expires.setMinutes(expires.getMinutes() + 10);
+
+    await UserModel.update(
+      {
+        loginVerificationCode: code,
+        loginVerificationExpires: expires,
+      },
+      { where: { id: userValue.id } }
+    );
+
+    // salvar o cód randomico no banco e enviar pro usuario
+    sendMfa(email, code);
+
+    return;
+  }
+
+  async verify(email, password, userSendCode) {
+    if (
+      email === undefined ||
+      password === undefined ||
+      userSendCode === undefined
+    ) {
+      throw new Error("Email e senha são obrigatórios.");
+    }
+
+    const userValue = await UserModel.findOne({ where: { email } });
+    if (!userValue) {
+      throw new Error("Código Inválido.");
+    }
+
+    const senhaValida = await bcrypt.compare(
+      String(password),
+      userValue.password
+    );
+    if (!senhaValida) {
+      throw new Error("Código Inválido.");
+    }
+
+    const now = new Date();
+    if (
+      userSendCode !== userValue.loginVerificationCode ||
+      now > userValue.loginVerificationExpires
+    ) {
+      throw new Error("Código Inválido ou expirado.");
+    }
+
+    if (userSendCode === userValue.loginVerificationCode) {
+      return jwt.sign({ id: userValue.id }, SECRET_KEY, { expiresIn: 60 * 60 });
+    }
+    throw new Error("Código Inválido.");
   }
 }
 

@@ -21,7 +21,7 @@ class UserApi {
     } catch (e) {
       return res
         .status(400)
-        .send({ error: `Erro ao criar usuário ${e.message}` });
+        .send({ error: `Erro ao criar usuário: ${e.message}` });
     }
   }
 
@@ -51,7 +51,17 @@ class UserApi {
   async login(req, res) {
     try {
       const { email, password } = req.body;
-      const token = await UserController.login(email, password);
+      await UserController.login(email, password);
+      return res.status(201).send({ msg: "Código enviado para o seu email" });
+    } catch (e) {
+      return res.status(400).send({ error: `Erro: ${e.message}` });
+    }
+  }
+
+  async verify(req, res) {
+    try {
+      const { email, password, code } = req.body;
+      const token = await UserController.verify(email, password, code);
       return res.status(201).send({ token });
     } catch (e) {
       return res.status(400).send({ error: `Erro: ${e.message}` });
