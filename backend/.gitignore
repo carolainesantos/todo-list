@@ -1,2 +1,4 @@
 node_modules
 mfa.html
+.env 
+.env.example

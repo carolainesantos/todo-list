@@ -5,6 +5,7 @@ const database = require("./src/config/database");
 const cors = require("cors");
 const xssClean = require("xss-clean");
 const cookieParser = require("cookie-parser");
+require("dotenv").config();
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     methods: "GET,POST,PUT,DELETE",
   })
 );

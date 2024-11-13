@@ -1,10 +1,11 @@
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 // Config para onde será enviado
 const transporter = nodemailer.createTransport({
-  host: "localhost",
-  port: 1025,
-  connectionTimeout: 5000,
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
+  connectionTimeout: process.env.EMAIL_TIMEOUT,
   ignoreTLS: true,
 });
 

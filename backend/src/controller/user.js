@@ -3,9 +3,10 @@ const bcrypt = require("bcrypt");
 const UserModel = require("../model/user");
 const sendMfa = require("../commom/nodemailer");
 const randomCode = require("../commom/random-code");
+require("dotenv").config();
 
-const SECRET_KEY = "exemplo";
-const SALT_VALUE = 12;
+const SECRET_KEY = process.env.JWT_SECRET;
+const SALT_VALUE = process.env.JWT_SALT;
 
 class UserController {
   async findById(id) {
@@ -136,7 +137,9 @@ class UserController {
     }
 
     if (userSendCode === userValue.loginVerificationCode) {
-      return jwt.sign({ id: userValue.id }, SECRET_KEY, { expiresIn: 60 * 60 });
+      return jwt.sign({ id: userValue.id }, SECRET_KEY, {
+        expiresIn: process.env.JWT_EXPIRATION,
+      });
     }
     throw new Error("Código Inválido.");
   }
